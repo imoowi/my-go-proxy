@@ -1,0 +1,10 @@
+version: "3"
+services:
+  my-go-proxy:
+    container_name: my-go-proxy
+    build: .
+    ports:
+      - 8080:8080
+    volumes:
+      - ./cache:/cache
+    restart: always
