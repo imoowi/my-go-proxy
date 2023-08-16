@@ -26,15 +26,16 @@ COPY . .
 RUN pwd && ls
 RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-w -s" -a -installsuffix cgo -o my-go-proxy .
 
-FROM alpine
+# FROM alpine
 
-COPY --from=builder /go/release/my-go-proxy /
+# COPY --from=builder /go/release/my-go-proxy /
 
-COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
-COPY --from=builder /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+# COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
+# COPY --from=builder /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 #EXPOSE 声明容器的服务端口（仅仅是声明）
 EXPOSE 8080
 
 #CMD 运行容器时执行的shell环境
-CMD ["/my-go-proxy"]
+# CMD ["/my-go-proxy"]
+CMD ["/go/release/my-go-proxy"]
