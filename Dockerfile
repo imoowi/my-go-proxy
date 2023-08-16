@@ -1,7 +1,7 @@
 #FROM 基础镜像
-FROM golang:1.20-alpine as builder
+FROM golang:1.20-alpine
 
-# FROM golang:1.18-alpine as builder
+# FROM golang:1.18-alpine
 
 #LABEL 指令用来给镜像添加一些元数据（metadata），以键值对的形式
 LABEL maintainer="imoowi"
@@ -11,7 +11,7 @@ ENV GO111MODULE=on
 ENV GOPROXY https://goproxy.cn,direct
 
 #为 RUN、CMD、ENTRYPOINT、COPY 和 ADD 设置工作目录，就是切换目录
-WORKDIR /go/release
+WORKDIR /
 
 #RUN 构建镜像时运行的指令
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
@@ -37,5 +37,4 @@ RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-w -s" -a -installsuffix cgo -o 
 EXPOSE 8080
 
 #CMD 运行容器时执行的shell环境
-# CMD ["/my-go-proxy"]
-CMD ["/go/release/my-go-proxy"]
+CMD ["/my-go-proxy"]
